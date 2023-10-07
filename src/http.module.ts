@@ -1,19 +1,22 @@
 import { Module, DynamicModule } from '@nestjs/common';
-import { HttpService } from './http.service';
+import { CreateAxiosDefaults } from 'axios';
+import { HttpClientFactory } from './http-factory.service';
 
 @Module({})
 export class HttpModule {
-  static forRoot(urls: { name: string; value: string }[]): DynamicModule {
-    const httpService = new HttpService(urls);
+  static register(
+    configs: { name: string; config: CreateAxiosDefaults<any> }[],
+  ): DynamicModule {
+    const factory = new HttpClientFactory(configs);
     return {
       module: HttpModule,
       providers: [
         {
-          provide: HttpService,
-          useValue: httpService,
+          provide: HttpClientFactory,
+          useValue: factory,
         },
       ],
-      exports: [HttpService],
+      exports: [HttpClientFactory],
     };
   }
 }
