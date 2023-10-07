@@ -11,7 +11,7 @@
 <!--ts-->
 
 - [How to use](#-how-to-use)
-- [Example](#-example)
+- [Example](#example)
 
 <!--te-->
 
