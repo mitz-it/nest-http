@@ -9,16 +9,26 @@ In the module I must import the `HttpModule` and configure the clients, example 
 ```ts
 import { Module } from '@nestjs/common';
 
-import { HttpModule } from 'nestjs-http-package';
+import { HttpModule } from '@mitz-it/nestjs-http';
 
 import { HttpCompanyRepository } from '../infra';
 import { CompanyRepositoryToken } from '../domain';
 
 @Module({
   imports: [
-    HttpModule.forRoot([
-      { name: 'brasilApi', value: 'https://brasilapi.com.br/api/cnpj/v1' },
-      { name: 'viaCep', value: 'https://viacep.com.br/ws' },
+    HttpModule.register([
+      {
+        name: 'brasilApi',
+        config: {
+          baseURL: 'https://brasilapi.com.br/api/cnpj/v1',
+        },
+      },
+      {
+        name: 'viaCep',
+        config: {
+          baseURL: 'https://viacep.com.br/ws',
+        },
+      },
     ]),
   ],
   providers: [
@@ -40,17 +50,17 @@ In my repository, I need to inject the `HttpService` and use it normally:
 ```ts
 import { Inject, Injectable } from '@nestjs/common';
 
-import { HttpService } from 'nestjs-http-package';
+import { HttpClientFactory } from '@mitz-it/nestjs-http';
 
 import { CompanyEntity, CompanyRepository } from '@/company/domain';
 
 @Injectable()
 export class HttpCompanyRepository implements CompanyRepository {
-  constructor(@Inject(HttpService) private readonly httpService: HttpService) {}
+  constructor(private readonly factory: HttpClientFactory) {}
 
   async findCompany(document: string): Promise<any> {
     try {
-      const client = this.httpService.getClient('brasilApi');
+      const client = this.factory.createClient('brasilApi');
       const response = await client.get(`/${document}`);
 
       return response.data;
@@ -61,7 +71,7 @@ export class HttpCompanyRepository implements CompanyRepository {
 
   async findAddress(cep: string): Promise<any> {
     try {
-      const client = this.httpService.getClient('viaCep');
+      const client = this.factory.createClient('viaCep');
       const response = await client.get(`/${cep}/json`);
 
       return response.data;
