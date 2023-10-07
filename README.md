@@ -11,7 +11,8 @@
 <!--ts-->
 
 - [How to use](#-how-to-use)
-- [Example](#example)
+  - [Example](#example)
+- [License](#-license)
 
 <!--te-->
 
@@ -91,6 +92,6 @@ export class HttpCompanyRepository implements CompanyRepository {
 
 In the `findCompany` method, you searched for the client configured for `brasilApi` and in the `findAddress` method, you searched for the client configured for `viaCep`, making your respective requests.
 
-## 📝 Licença
+## 📝 License
 
 This project is licensed [MIT](./LICENSE.md).
