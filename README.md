@@ -1,4 +1,21 @@
-# How to use
+<h1 align="center">
+     🐈 <a href="#" alt="site do places">Nest Http</a>
+</h1>
+
+<h3 align="center">
+  💉 Injecting multiple http clients into a module
+</h3>
+
+# Table of contents
+
+<!--ts-->
+
+- [How to use](#-how-to-use)
+- [Example](#-example)
+
+<!--te-->
+
+# 👨‍💻 How to use
 
 You must import it into your module and enter the name and value of your base url as configuration. It will create the client instance for your bases url (Currently it only has the axios client)
 
@@ -73,3 +90,7 @@ export class HttpCompanyRepository implements CompanyRepository {
 ```
 
 In the `findCompany` method, you searched for the client configured for `brasilApi` and in the `findAddress` method, you searched for the client configured for `viaCep`, making your respective requests.
+
+## 📝 Licença
+
+This project is licensed [MIT](./LICENSE.md).
