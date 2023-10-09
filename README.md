@@ -101,9 +101,9 @@ In the `findCompany` method, you searched for the client configured for `brasilA
 
 ## 📑To Do
 
-- [] Add tests
-- [] Add examples
-- [] Add multiple http clients (axios, fetch api...)
+- [ ] Add tests
+- [ ] Add examples
+- [ ] Add multiple http clients (axios, fetch api...)
 
 ## 📝 License
 
