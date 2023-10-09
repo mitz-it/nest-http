@@ -1,8 +1,12 @@
 {
   "name": "@mitz-it/nest-http",
-  "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "version": "1.0.1",
+  "description": "Multiples http clients for NestJS",
+  "author": "Mitz IT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mitz-it/nest-http.git"
+  },
   "private": false,
   "license": "MIT",
   "main": "dist/index.js",

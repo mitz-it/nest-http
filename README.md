@@ -1,36 +1,41 @@
 <h1 align="center">
-     🐈 <a href="#" alt="site do places">Nest Http</a>
+     🐈 <a href="#" alt="">Nest Http</a>
 </h1>
 
 <h3 align="center">
   💉 Injecting multiple http clients into a module
 </h3>
 
-# Table of contents
+## Table of contents
 
 <!--ts-->
 
+- [Installation](#installation)
 - [How to use](#-how-to-use)
   - [Example](#example)
+- [To Do](#to-do)
 - [License](#-license)
 
 <!--te-->
 
-# 👨‍💻 How to use
+## 💡Installation
+
+`npm i @mitz-it/nest-http` or `yarn add @mitz-it/nest-http`
+
+## 👨‍💻 How to use
 
 You must import it into your module and enter the name and value of your base url as configuration. It will create the client instance for your bases url (Currently it only has the axios client)
 
-## Example
+### Example
 
 In the module I must import the `HttpModule` and configure the clients, example of use:
 
 ```ts
 import { Module } from '@nestjs/common';
+import { HttpModule } from '@mitz-it/nest-http';
 
-import { HttpModule } from '@mitz-it/nestjs-http';
-
-import { HttpCompanyRepository } from '../infra';
-import { CompanyRepositoryToken } from '../domain';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -49,16 +54,10 @@ import { CompanyRepositoryToken } from '../domain';
       },
     ]),
   ],
-  providers: [
-    HttpCompanyRepository,
-    {
-      provide: CompanyRepositoryToken,
-      useExisting: HttpCompanyRepository,
-    },
-  ],
-  exports: [CompanyRepositoryToken],
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class HttpCompanyInfraModule {}
+export class AppModule {}
 ```
 
 I generated two clients, one pointing to BrasilApi and the other to ViaCep. One to search for information about a Brazilian company, and another to search for address information based on zip code.
@@ -66,14 +65,12 @@ I generated two clients, one pointing to BrasilApi and the other to ViaCep. One 
 In my repository, I need to inject the `HttpService` and use it normally:
 
 ```ts
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { HttpClientFactory } from '@mitz-it/nestjs-http';
-
-import { CompanyEntity, CompanyRepository } from '@/company/domain';
+import { HttpClientFactory } from '@mitz-it/nest-http';
 
 @Injectable()
-export class HttpCompanyRepository implements CompanyRepository {
+export class AppService {
   constructor(private readonly factory: HttpClientFactory) {}
 
   async findCompany(document: string): Promise<any> {
@@ -101,6 +98,12 @@ export class HttpCompanyRepository implements CompanyRepository {
 ```
 
 In the `findCompany` method, you searched for the client configured for `brasilApi` and in the `findAddress` method, you searched for the client configured for `viaCep`, making your respective requests.
+
+## 📑To Do
+
+- [ ] Add tests
+- [ ] Add examples
+- [ ] Add multiple http clients (axios, fetch api...)
 
 ## 📝 License
 
