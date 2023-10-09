@@ -10,10 +10,10 @@
 
 <!--ts-->
 
-- [Installation](#-installation)
+- [Installation](#installation)
 - [How to use](#-how-to-use)
   - [Example](#example)
-- [To Do](#-to-do)
+- [To Do](#to-do)
 - [License](#-license)
 
 <!--te-->
